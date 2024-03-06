@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('indicateur_quantis', function (Blueprint $table) {
             $table->id();
+            $table->json("quanti");
+            $table->boolean("statut")->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
