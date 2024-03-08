@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\indicateurQuanti;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\IndicateurQuantiResource;
+use App\Http\Resources\IndicateurQualiResource;
+use App\Models\IndicateurQuali;
+use Symfony\Component\HttpFoundation\Response;
 class IndicateurQuantiController extends Controller
 {
     /**
@@ -12,7 +16,16 @@ class IndicateurQuantiController extends Controller
      */
     public function index()
     {
-        //
+        $quanti = IndicateurQuanti::all();
+        $quali = IndicateurQuali::all();
+        return response()->json([
+            "statut"=>Response::HTTP_OK,
+            "message"=>"recupération de tous les indicateurs",
+           "data"=>[
+            "quanti"=>IndicateurQuantiResource::collection($quanti),
+            "quali"=>IndicateurQualiResource::collection($quali),
+           ]
+        ]);
     }
 
     /**
@@ -26,10 +39,29 @@ class IndicateurQuantiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+   
     public function store(Request $request)
     {
-        //
+        
+        try
+        {
+            return DB::transaction(function() use($request){
+                $indicateurQuali = IndicateurQuanti::create([
+                    "indicateur"=>$request->indicateur,
+                    "poids_RA"=>$request->poids_RA,
+                    "poids_CC"=>$request->poids_CC,
+                    "poids_RAVT"=>$request->poids_RAVT,
+                    "poids_SADI"=>$request->poids_SADI,
+                ]);
+            });
+        }catch(Exception $e)
+        {
+            return response()->json([
+                "error"=>$e->getMessage(),
+            ]);
+        }
     }
+    
 
     /**
      * Display the specified resource.
