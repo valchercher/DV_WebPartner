@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\IndicateurQuanti;
 return new class extends Migration
 {
     /**
@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('outils', function (Blueprint $table) {
+            $table->foreignIdFor(IndicateurQuanti::class)->constrained()->cascadeOnDelete();
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('outils', function (Blueprint $table) {
+            //
+        });
     }
 };

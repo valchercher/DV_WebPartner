@@ -1,0 +1,203 @@
+
+<div class="text-center divMessage   w-full text-white">
+    <span class="w-full message" ></span>
+  </div>
+<form action="" [formGroup]="formQuanti" (ngSubmit)="enregistrer()">
+    <div class="flex justify-around items-center w-full" style="background-color: #f97316;height: 35px;;">
+        <!-- <div class="flex flex-direction-column space-x-2">
+            <button  type="button" id="add-column-quanti" style="background-color: blueviolet ;"  class="mt-2  bg-[ rgb(8 145 178)]-400 focus:outline-none text-white bg-cyan-700  focus:ring-4 focus:ring-cyan-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">
+                +
+            </button>
+            <button  type="button" id="remove-column-form" hidden style="cursor:default"  class="mt-2   focus:outline-none text-white bg-red-700  focus:ring-4 focus:ring-red-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                -
+            </button>
+        </div> -->
+        <div class="">
+            <h3 class=" my-4 text-center text-white font-bold underline   py-2" >Indicateurs Quanti</h3>
+        </div>
+        <div class="flex  ">
+            <div class=""></div>
+            <div class="flex flex-direction-column space-x-2">
+                <button  type="button" (click)="add_quanti($event)" id="add-quanti" [hidden]="activeAdd" style="background-color: rgb(8 145 178) ;"  class="mt-2  bg-[ rgb(8 145 178)]-400 focus:outline-none text-white bg-cyan-700  focus:ring-4 focus:ring-cyan-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">
+                    +
+                </button>
+                <button  type="button" (click)="remove_quanti($event)" id="remove-form" [hidden]="active" style="cursor:default"  class="mt-2   focus:outline-none text-white bg-red-700  focus:ring-4 focus:ring-red-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                    -
+                </button>
+                <button  type="submit" id="add" [hidden]="save" style="cursor:default;"   class="mt-2 ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    save
+                </button>
+            </div> 
+        </div>
+    </div>
+    <div class="flex ">
+        
+            <table style="width: 150px;" class=" floop_ table-auto border-dashed bg-white shadow-md rounded-lg table-border w-min-full  border text-center text-sm font-light dark:border-neutral-500 ">
+                <thead>
+                    <tr class="shadow-md rounded-lg" > 
+                        <th>Indicateur</th> 
+                    </tr>
+                    <tr class="shadow-md rounded-lg">
+                        <th>Poids CC</th>
+                    </tr>
+                    <tr class="shadow-md rounded-lg">
+                        <th>Poids RA</th>
+                    </tr>
+                    <tr class="shadow-md rounded-lg">
+                        <th>Poids RAVT</th>
+                    </tr>
+                    <tr class="shadow-md rounded-lg">
+                        <th>Poids SADI</th>
+                    </tr>
+                </thead>
+                </table>
+                <div class="w-full overflow-x-scroll scrollbar-hidden overflow-auto" style="max-width: 86% ">
+                    
+                    <table class="w-full floop_counter table-auto border-dashed bg-white shadow-md rounded-lg table-border w-min-full  border text-center text-sm font-light dark:border-neutral-500 ">
+                        <thead>
+                            <tr class="shadow-md rounded-lg" >  
+                                <th *ngFor="let quanti of dataQuanti" class="text-center border-r p-7 dark:border-neutral-500">
+                                    <div class="input-group">
+                                        <div class="relative">
+                                            <input type="text" (input)="updateLibelle($event)" id="{{quanti.id}}_indicateur" value="{{quanti.indicateur}}" class=" indicateur_quanti text-auto  text-center form-control  bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            <!-- <i id="icones"  class="absolute right-0 top-1  bottom-0 flex items-center pr-3 text-green-400 fas fa-sync-alt " ></i>  -->
+                                            <i style="display: none;" id="{{quanti.id}}_icone" class="absolute  right-0 top-0  text-green-500 cursor-pointer">mise</i>         
+                                        </div>
+                                    </div>
+                                </th>
+                                <th [hidden]="affiche" class="text-center border-r p-7 dark:border-neutral-500">
+                                    <div class="input-group  text-center flex justify-center">   
+                                        <input type="text" formControlName="indicateur" id="quantite" (input)="afficheSave($event)" class="block  p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                    
+                                    </div>
+                                </th>          
+                            </tr>
+                            <tr class="shadow-md rounded-lg">
+                                <ng-container *ngFor="let quanti of dataQuanti">
+                                   <td class="text-center border-r dark:border-neutral-500">
+                                    <div class="input-group w-full">
+                                        <div class="input-group-prepend">
+                                          <button (click)="plus($event)" type="button" class="poids_CC btn btn-outline-secondary plus inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">+</button>
+                                        </div>
+                                        <input type="number" readonly id="{{quanti.id}}_CC" [value]="quanti.poids_CC" class="libelle text-auto text-center form-control valuePoidsCC bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required min="0" max="100"/>%
+                                        <div class="input-group-append">
+                                          <button type="button" (click)="moins($event)" class="poids_CC btn btn-outline-secondary moins focus:p-3 inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">-</button>
+                                        </div> 
+                                      </div>
+                                   </td>
+                                </ng-container>
+                                <td [hidden]="affiche" class="text-center border-r dark:border-neutral-500">
+                                    <div class="input-group  text-center flex justify-center">   
+                                        <input type="number" formControlName="poids_CC"  class="block  p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                    
+                                        %
+                                    </div>
+                                </td>  
+                            </tr>
+                            <tr class="shadow-md rounded-lg">
+                               
+                                <ng-container *ngFor="let quanti of dataQuanti">
+                                    <td class="text-center border-r dark:border-neutral-500">
+                                     <div class="input-group w-full">
+                                         <div class="input-group-prepend">
+                                           <button (click)="plus($event)" type="button" class="poids_RA btn btn-outline-secondary plus inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">+</button>
+                                         </div>
+                                         <input type="number" readonly id="{{quanti.id}}_RA" [value]="quanti.poids_RA" class="libelle text-auto text-center form-control valuePoidsCC bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required min="0" max="100"/>%
+                                         <div class="input-group-append">
+                                           <button (click)="moins($event)" type="button" class="poids_RA btn btn-outline-secondary moins focus:p-3 inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">-</button>
+                                         </div> 
+                                       </div>
+                                    </td>
+                                 </ng-container>
+                                 <td [hidden]="affiche" class="text-center border-r dark:border-neutral-500">
+                                    <div class="input-group  text-center flex justify-center">   
+                                        <input type="number" formControlName="poids_RA" id="" class="block  p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                    
+                                        %
+                                    </div>
+                                   </td> 
+                            </tr>
+                            <tr class="shadow-md rounded-lg">
+                                
+                                <ng-container *ngFor="let quanti of dataQuanti">
+                                    <td class="text-center border-r dark:border-neutral-500">
+                                     <div class="input-group w-full">
+                                         <div class="input-group-prepend">
+                                           <button (click)="plus($event)" type="button" class="poids_RAVT btn btn-outline-secondary plus inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">+</button>
+                                         </div>
+                                         <input type="number" readonly id="{{quanti.id}}_RAVT" [value]="quanti.poids_RAVT" class="libelle text-auto text-center form-control valuePoidsCC bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required min="0" max="100"/>%
+                                         <div class="input-group-append">
+                                           <button (click)="moins($event)" type="button" class="poids_RAVT btn btn-outline-secondary moins focus:p-3 inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">-</button>
+                                         </div> 
+                                       </div>
+                                    </td>
+                                 </ng-container>
+                                 <td [hidden]="affiche" class="text-center border-r dark:border-neutral-500">
+                                    <div class="input-group  text-center flex justify-center">   
+                                        <input type="number" formControlName="poids_RAVT"  id="" class="block  p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                    
+                                        %
+                                    </div>
+                                   
+                                   </td> 
+                            </tr>
+                            <tr class="shadow-md rounded-lg">
+                             
+                                <ng-container *ngFor="let quanti of dataQuanti">
+                                    <td class="text-center border-r dark:border-neutral-500">
+                                     <div class="input-group w-full">
+                                         <div class="input-group-prepend">
+                                           <button (click)="plus($event)" type="button" class="poids_SADI btn btn-outline-secondary plus inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">+</button>
+                                         </div>
+                                         <input type="number" readonly id="{{quanti.id}}_SADI" [value]="quanti.poids_SADI" class="libelle text-auto text-center form-control valuePoidsCC bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required min="0" max="100"/>%
+                                         <div class="input-group-append">
+                                           <button (click)="moins($event)" type="button" class="poids_SADI btn btn-outline-secondary moins focus:p-3 inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">-</button>
+                                         </div> 
+                                       </div>
+                                    </td>
+                                 </ng-container>
+                                 <td [hidden]="affiche" class="text-center border-r dark:border-neutral-500">
+                                    <div class="input-group  text-center flex justify-center">   
+                                        <input type="number" formControlName="poids_SADI"  id="t" class="block  p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                    
+                                        %
+                                    </div>
+                                   </td> 
+                            </tr>
+                        </thead>
+                        <tbody  >                 
+                        </tbody>
+                        
+                    </table>
+                    
+                </div>
+        <table id="" style="width: 100px;"  class="floop_counter_table table-auto border-dashed bg-white shadow-md rounded-lg table-border  border text-center text-sm font-light dark:border-neutral-500 ">
+            <thead class="text-white  border border-b font-medium dark:border-neutral-500" style="background-color: #f97316;">
+               <tr class="w-full " >
+                    <th scope="col"  class="text-center shadow-md rounded-lg py-7 px-5">Poids</th>
+               </tr>
+            </thead>
+            <tbody>
+               
+                <tr class="shadow-md rounded-lg  py-2" >    
+                  <td class="text-center  quanti_poids_CC">                  
+                    {{calculateSum(dataQuanti,getPoids_CC)}}%
+                 </td>                 
+                </tr>
+                <tr class="shadow-md rounded-lg  py-2" >    
+                    <td class="text-center  quanti_poids_RA">                  
+                      {{calculateSum(dataQuanti,getPoids_RA)}}%
+                   </td>                 
+                </tr>
+                <tr class="shadow-md rounded-lg  py-2" >    
+                    <td class="text-center  quanti_poids_RAVT">                  
+                      {{calculateSum(dataQuanti,getPoids_RAVT)}}%
+                   </td>                 
+                </tr>
+                <tr class="shadow-md rounded-lg  py-2" >    
+                    <td class="text-center  quanti_poids_SADI">                  
+                      {{calculateSum(dataQuanti,getPoids_SADI)}}%
+                   </td>                 
+                </tr>
+                
+               
+            </tbody>
+        </table>
+    </div>
+</form>
+<!-- <button type="text" readonly disabled style="margin-left:80%;margin-top:5px;cursor:default" class=" shadow  text-white bg-green-700   font-medium rounded-lg text-sm px-6 py-4 me-2 mb-2 dark:bg-green-600">Objectif</button>  -->

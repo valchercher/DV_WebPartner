@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('palliers', function (Blueprint $table) {
+            $table->integer('commission_RAVT');
+            $table->integer('commission_SADI');
+        });
     }
 
     /**
@@ -19,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('palliers', function (Blueprint $table) {
+            //
+        });
     }
 };

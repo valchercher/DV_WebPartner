@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class indicateurQuali extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $fillable = ['quali', 'objectif'];
 }

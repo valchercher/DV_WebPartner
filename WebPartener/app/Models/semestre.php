@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class semestre extends Model
+use Illuminate\Database\Eloquent\SoftDeletes;
+class Semestre extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
+    protected $guarded=["id"];
 }

@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('palliers', function (Blueprint $table) {
+            $table->integer('regle_pallier_sablix');
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('palliers', function (Blueprint $table) {
+            //
+        });
     }
 };

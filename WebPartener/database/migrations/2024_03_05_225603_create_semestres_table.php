@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\Annee;
 return new class extends Migration
 {
     /**
@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('semestres', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-            $table->foreignId
             $table->boolean("etat")->default(false);
             $table->softDeletes();
             $table->timestamps();
