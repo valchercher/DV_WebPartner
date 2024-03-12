@@ -1,1 +1,166 @@
-<p>indicateurpallier works!</p>
+<form [formGroup]="formPallier" (ngSubmit)="enregistrer()" class="mb-2">
+
+    <div class="flex flex-direction-column">
+     <div class="bg-gray-200 flex justify-center space-x-2 border shadow-md rounded-lg border-b-2 " style="width:13%; margin-top: -25px;">
+       <button  type="button" id="addPallier" (click)="add_quanti($event)" [hidden]="activeAdd" style="background-color: #f97316"  class="mt-2  focus:outline-none text-white bg-cyan-700  focus:ring-4 focus:ring-cyan-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">
+           +
+       </button>
+       <button  type="button" id="removePallier" (click)="remove_quanti($event)" [hidden]="active"  class="mt-2 ml-2   focus:outline-none text-white bg-red-700  focus:ring-4 focus:ring-red-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+           -
+       </button>
+       <button  type="submit" id="savePallier"  [hidden]="save"  class="mt-2 ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-lg text-sm px-4 py-1 me-2 mb-2 font-bold dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+           save
+       </button>
+     </div> 
+     <div class="text-center divMessage   w-full text-white">
+       <span class="w-full" id="messagePallier" ></span>
+     </div>
+    </div>
+     
+     <!-- <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">+</button> -->
+     <div  class=" overflow-x-scroll ">
+       <table class="table_pallier  bg-white border-2 table-border border-gray-300 shadow-lg rounded-lg">
+         <thead class=" border-2 bg-gray-100">
+           <tr class= " bg-gray-200 border-b-2 border-gray-300 text-center">
+             <th class="py-2 px-2 border-b-1 " rowspan="6">Pallier</th>
+             <th class="py-2 relative px-16 border-2" style="background-color: orange;" *ngFor="let liste of dataPallier">
+                 <div class=" ">
+                     <span>
+                         {{liste.libelle}}
+                     </span>
+                     <!-- <i id="_sync" style="display: block;" class=" absolute right-0 top-1  bottom-0 flex items-center pr-3 text-green-400 fas fa-sync-alt " aria-hidden="true"></i> -->
+                    </div>
+                    <i style="display: none;" id="{{liste.id}}_iconePallier" class="absolute   right-4 top-2  text-green-500 cursor-pointer">mise</i>         
+             </th>
+             
+            <td [hidden]="affiche" id="id_pallier_td" class=" px-11 " >
+              <input type="text" formControlName="libelle" (input)="afficheSave($event)" id="" class="block  p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </td>              
+           </tr>
+         </thead>
+        <tbody>
+           <tr class="border-b-2 border-gray-300 text-white text-center" style="background: blueviolet;">
+             <th class="py-2 px-2 border-b-2 border-gray-300 text-black bg-white">Condition</th>
+             
+             <td class="py-2 px-4 border-2 text-black " *ngFor="let liste of dataPallier">
+              <input type="text" (input)="updatePallier($event)" id="{{liste.id}}_condition" name="{{liste.libelle}} "  aria-describedby="helper-text-explanation" class="bg-gray-50  font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 px-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.condition}}" required />
+            </td>
+             
+             <td [hidden]="affiche" class="text-black  hien py-2 px-11" id="id_condition_td" > 
+              <input type="text" formControlName="condition" id="" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+             </td>
+           </tr>
+           <tr class="border-b-2 tr_regle border-gray-300 text-center bg-gray-200">
+               <th class="py-2 px-4 border-b-2 border-gray-300">Regle %Pallier(CC,RA)</th>
+               
+               <td class="py-2 px-4 border-2 border-white "  *ngFor="let liste of dataPallier">
+                <div class="flex items-center w-full">
+                  <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_regle_pallier" name="{{liste.libelle}} " aria-describedby="helper-text-explanation" class="  bg-gray-50  font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.regle_pallier}}" required />
+                  <span>%</span>
+                </div>
+              </td>
+               
+                 <td [hidden]="affiche" id="id_regle_pallier_td" class="hdden px-11">
+                 <div class="flex items-center w-full" >
+                  <input type="number" formControlName="regle_pallier" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                     <span>CFA</span>
+                 </div>
+                 </td>
+             </tr>
+           <tr class="border-b-2 border-gray-300 text-center bg-gray-50">
+               <th class="py-2 px-2 border-b-2 border-gray-300">Commission Ccrs</th>
+               
+               <td class="py-2 px-4 border-2 border-white"  *ngFor="let liste of dataPallier">
+                 <div class="flex items-center w-full">
+                   <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_commission_CC" name="{{liste.libelle}} " aria-describedby="helper-text-explanation" class="font-bold bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-center focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{liste.commission_CC}}" placeholder="90210" required />
+                   <span>CFA</span>
+                 </div>
+               </td>
+               
+             <td [hidden]="affiche" id="" class="hiden px-11 ">
+               <div class="flex items-center w-full" >
+                <input type="number" formControlName="commission_CC" id="" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                 <span>CFA</span>
+               </div>
+             </td>
+           </tr>
+           <tr class="border-b-2 border-gray-300 text-center bg-gray-200">
+               <th class="py-2 px-4 border-b-2 border-gray-300 ">Commission RA </th>
+               
+               <td class="py-2 px-4 border-2 border-white "  *ngFor="let liste of dataPallier">
+                 <div class="flex items-center w-full">
+                   <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_commission_RA"  name="{{liste.libelle}} " aria-describedby="helper-text-explanation" class="  bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.commission_RA}}" required />
+                   <span>CFA</span>
+                 </div>
+               </td>
+              
+             
+             <td [hidden]="affiche" id="id_commission_ra_td" class="idden px-11">
+               <div class="flex items-center w-full" >
+                <input type="number" formControlName="commission_RA" id="" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                 <span>CFA</span>
+               </div>
+             </td>
+           </tr>
+           <tr class="border-b-2 tr_regle bg-white border-gray-300 text-center ">
+            <th class="py-2 px-4 border-b-2  border-gray-300">Regle %Pallier(RAVT ,SADI)</th>
+            
+            <td class="py-2 px-4 border-2 border-white "  *ngFor="let liste of dataPallier">
+              <div class="flex items-center w-full">
+                <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_regle_pallier_sablix" name="{{liste.libelle}} " aria-describedby="helper-text-explanation" class="  bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.regle_pallier_sablix}}" required />
+                <span>%</span>
+              </div>
+            </td>
+            
+              <td [hidden]="affiche" id="id_regle_pallier_td" class="hden px-11">
+              <div class="flex items-center w-full" >
+                <input type="number" formControlName="regle_pallier_sablix" id="" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                  <span>%</span>
+              </div>
+              </td>
+          </tr>
+        <tr class="border-b-2 border-gray-300 text-center bg-gray-200">
+            <th class="py-2 px-4 border-b-2 border-gray-300 ">Commission RAVT </th>
+            
+            <td class="py-2 px-4 border-2 border-white "  *ngFor="let liste of dataPallier">
+              <div class="flex items-center w-full">
+                <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_commission_RAVT" name="{{liste.libelle}}"  aria-describedby="helper-text-explanation" class=" bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.commission_RAVT}}" required />
+                <span>CFA</span>
+              </div>
+            </td>
+           
+          
+          <td [hidden]="affiche" id="id_commission_r" class="hide  px-11">
+            <div class="flex items-center w-full" >
+              <input type="number" formControlName="commission_RAVT" id="" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <span>CFA</span>
+            </div>
+          </td>
+        </tr>
+        <tr class="border-b-2 border-gray-300 text-center bg-white">
+            <th class="py-2 px-4 border-b-2 border-gray-300 ">Commission SADI </th>
+            
+            <td class="py-2 px-4 border-2 border-white "  *ngFor="let liste of dataPallier">
+              <div class="flex items-center w-full">
+                <input type="number" (input)="updatePallier($event)" id="{{liste.id}}_commission_SADI" name="{{liste.libelle}} "  aria-describedby="helper-text-explanation" class=" bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" value="{{liste.commission_SADI}}" required />
+                <span>CFA</span>
+              </div>
+            </td>
+          <td [hidden]="affiche" id="" class="hden px-11">
+            <div class="flex items-center w-full" >
+              <input type="number" id="" formControlName="commission_SADI" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+              <span>CFA</span>
+            </div>
+          </td>
+        </tr>
+         </tbody> 
+       </table>
+     </div>
+   </form>
+ 
+  
