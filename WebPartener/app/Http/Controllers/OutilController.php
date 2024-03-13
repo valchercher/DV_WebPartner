@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\IndicateurQuanti;
 use App\Models\Outil;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;  
+use Exception;
 
 
 class OutilController extends Controller
