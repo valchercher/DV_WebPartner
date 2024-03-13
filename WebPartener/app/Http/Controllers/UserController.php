@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Exception;
 class UserController extends Controller
 {
     public function store(UserRequest $request)
@@ -13,7 +14,7 @@ class UserController extends Controller
         try{
             return DB::transaction(function() use($request){
                 $username = $request->name.'_'. $request->matricule;
-                
+
                 $user = new User();
                     $user->name=$request->name;
                     $user->prenom=$request->prenom;
