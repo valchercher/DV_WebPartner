@@ -1,14 +1,16 @@
 <div class="">
     <!-- <i class="fa-solid fa-pen-to-square"></i> -->
-    <app-sidebar/>
-    <app-navbar class="shadow-md rounded-lg"/>
-    <div class="flex space-x-3 mt-2 ml-12" style="margin-left: 260px;">
-        <app-indicateurquanti (updateQuanti)="handleUpdateQuanti($event)"  (createQuanti)="handleCreateQuanti($event)"  [dataQuanti]="dataQuanti" [dataKeys]="dataKeys"
-        ></app-indicateurquanti>
-        <app-indicateurquali (updateQuali)="handleUpdateQuali($event)" (createQuali)="handleCreateQuali($event)" [dataQuali]="dataQuali" ></app-indicateurquali>
-    </div>
-    <div style="margin-left: 260px; " class="mt-7">
-        <app-indicateurpallier (updateIndicateurPallier)="handleUpdatePallier($event)"  (createPallier)="handleCreatePallier($event)" [dataPallier]="dataPallier"></app-indicateurpallier>
-    </div>
+    <app-sidebar>
+    <!-- <app-navbar class="shadow-md rounded-lg"/> -->
+        <div class="flex space-x-3 mt-2 ml-12" style="margin-left: 260px;">
+            <app-indicateurquanti (updateQuanti)="handleUpdateQuanti($event)"  (createQuanti)="handleCreateQuanti($event)"  [dataQuanti]="dataQuanti" [dataKeys]="dataKeys"
+            ></app-indicateurquanti>
+            <app-indicateurquali (updateQuali)="handleUpdateQuali($event)" (createQuali)="handleCreateQuali($event)" [dataQuali]="dataQuali" ></app-indicateurquali>
+        </div>
+        <div style="margin-left: 260px; " class="mt-7">
+            <app-indicateurpallier (updateIndicateurPallier)="handleUpdatePallier($event)"  (createPallier)="handleCreatePallier($event)" [dataPallier]="dataPallier"></app-indicateurpallier>
+        </div>
+
+    </app-sidebar>
     <!-- <i class="fa-solid fa-pen-to-square"></i> -->
 </div>

@@ -1,0 +1,76 @@
+<div class="container content-center m space-y-7" >
+  <form action="" [formGroup]="objectifAnnee" (ngSubmit)="enregistrer()">
+    <div class="flex justify-around">
+        <div class="flex" style="margin-top: 25px;">
+          <button id="states-button" [disabled]="true" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm cursor-default font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+             annee
+          </button>
+          <!-- <label for="states" class="sr-only">Choisir une année</label> -->
+          <input type="text" formControlName="annee" readonly [value]=""  class="bg-white-50  focus:border-orange-500 focus:border-t-transparent border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+        </div>  
+      <div class="flex " style="margin-top: 25px;">
+        <button id="states-button" [disabled]="true" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm cursor-default font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+          Semestre
+        </button>
+        <div class="drop-container  ">
+            
+            <ng-multiselect-dropdown  class="" formControlName="semestre"
+            [placeholder]="'selection semestre'"
+            [settings]="dropdownSettings"
+            [data]="dropdownList"
+            (onSelect)="onItemSelect($event)"
+            >
+            </ng-multiselect-dropdown>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="mt-10">
+    <button  (click)="addItem()" type="button" class="ml-16 custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Ajouter
+  </button>
+  <div class=" overflow-y-scroll " style="max-height: 300px;">
+      <div  formArrayName="objectifs" *ngFor="let item of objectifs.controls;let i = index "> 
+          <div  [formGroupName]="i"  class="flex mt-5  justify-around" >
+              <div class="relative h-10 w-72 min-w-[200px]">
+                  <select formControlName="outil_id" [disabled]="compareOutil(control.value, form.value.outil_id)"  (change)="selectOutile(i,$event)" [compareWith]="compareOutil"
+                    class="peer h-full w-full rounded-[7px] bg-white border border-blue-gray-200 border-t-transparent focus:border-orange-500   bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-orange-900 focus:border-2  focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                    <option value="">Selectionner un outil</option>
+                    <option   *ngFor="let outile of dataOutiles" [ngValue]="outile">{{outile.indicateur.indicateur}}</option>
+                    
+                  </select>
+                  <label
+                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                    Outil
+                  </label>
+              </div>   
+              <div class="w-72 flex space-x-3">
+                  <div class="relative h-10 w-full min-w-[200px]">
+                    <input type="number" formControlName="value"
+                      class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-orange-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                      placeholder=" "
+                    />
+                    <label class="before:content[' '] after:content[' '] text-gray-400 pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                      Objectif
+                    </label>
+                  </div>
+                  <i  (click)="deleteItems(i)" class="mt-2 w-3 h-5 fa fa-trash text-red-600"></i>
+              </div>
+          </div> 
+      </div>
+  </div>
+  <div class="flex justify-around" style="margin-left: 55%;margin-top: 12px;">
+    <button
+      class="select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+      type="submit"
+      >
+      Enregistrer
+    </button>
+  </div>
+  <div class="mt-2 text-white">
+    .
+  </div>
+  </div>   
+  </form>   
+</div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\SemestreController;
 use App\Http\Controllers\OutilController;
+use App\Http\Controllers\ObjectifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,13 @@ Route::controller(SemestreController::class)->prefix('Sonatel_dv')->group(functi
 });
 Route::controller(OutilController::class)->prefix('Sonatel_dv')->group(function(){
     Route::post('create/outil','store');
+    Route::get('index/outil','index');
+});
+Route::controller(ObjectifController::class)->prefix('Sonatel_dv')->group(function(){
+    Route::post('create/objectif','store');
+    Route::get('index/objectif','index');
+    Route::delete('delete/objectif/{id}/{annee}','delete');
+    
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

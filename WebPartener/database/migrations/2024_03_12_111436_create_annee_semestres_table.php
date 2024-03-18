@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Annee::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Semestre::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(AnneeSemestre::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

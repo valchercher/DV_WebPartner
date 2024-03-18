@@ -220,7 +220,12 @@ export class IndicateurquantiComponent implements OnInit
               let chiffresCC = quantiCC?.textContent?.match(/\d/g);
             if(chiffresCC){
               let quantiCCValue = parseInt(chiffresCC.join(''));
-              let CC= eval(`${quantiCCValue} ${operation} 1`)
+              let CC :number;
+             if(operation === "+"){
+                CC= quantiCCValue + 1
+              }else{
+                CC= quantiCCValue - 1
+              }
               quantiCC.innerHTML = (`${CC}%`);
             }
           }

@@ -1,0 +1,19 @@
+
+
+    <div class="flex " style="margin-top: 25px;">
+        <button id="states-button" [disabled]="true" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm cursor-default font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+           Semestre
+        </button>
+        <div class="drop-container  ">
+            <form [formGroup]="form">
+              <ng-multiselect-dropdown class="" formControlName="grocery"
+            [placeholder]="'selection semestre'"
+            [settings]="dropdownSettings"
+            [data]="dropdownList"
+            (onSelect)="onItemSelect($event)"
+            >
+            </ng-multiselect-dropdown>
+            </form>
+        </div>
+    </div>
+

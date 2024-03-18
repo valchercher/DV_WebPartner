@@ -1,0 +1,10 @@
+.custom-blue{
+    background-color: #337ab7;
+} 
+.prevent {
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none; 
+    color: red;
+    
+  }
